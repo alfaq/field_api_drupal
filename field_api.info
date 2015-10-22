@@ -1,4 +1,4 @@
 name = Field Api
-description = В этом модуле я буду использовать Field API.
+description = В этом модуле я буду использовать Field API. http://php-include.ru/stati/field-api
 core = 7.x
 package = test_modules

@@ -3,3 +3,23 @@
 * @file
 * A description of what your module does.
 */
+
+function field_api_field_info() {
+    return array(
+        'alfaq_field' => array(
+            'label' => t('Select sex'),
+            'description' => t('Description field'),
+            'default_widget' => 'alfaq_field_widget',
+            'default_formatter' => 'alfaq_field_formatter',
+        ),
+    );
+}
+
+function field_api_field_widget_info() {
+    return array(
+        'alfaq_field' => array(
+            'label' => t('Selector'),
+            'field types' => array('alfaq_field'),
+        ),
+    );
+}
