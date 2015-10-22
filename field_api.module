@@ -17,7 +17,7 @@ function field_api_field_info() {
             'label' => t('Select sex'),
             'description' => t('Description field'),
             'default_widget' => 'alfaq_field_widget',
-            'default_formatter' => 'alfaq_field_formatter', // name line 47, по умолчанию будет выбран формат вывода label
+            'default_formatter' => 'alfaq_field_formatter', // по умолчанию будет выбран формат вывода label
         ),
     );
 }
@@ -76,4 +76,47 @@ function field_api_field_widget_form(&$form, &$form_state, $field, $instance, $l
             break;
     }
     return $element;
+}
+
+/**
+ * Далее создадим два формата вывода – полный и краткий, о которых мы говорили ранее. Используем hook_field_formatter_view.
+ */
+
+function field_api_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+    $element = array();
+
+    switch ($display['type']) {
+        case 'alfaq_field_formatter': //этот формат мы добавили в строке 47
+            dpm($items);
+            foreach ($items as $delta => $item) {
+                if ($item['alfaq_field']) {
+                    $val = $item['alfaq_field'];
+                    if($val==1){
+                        $element[$delta]['#markup'] = 'M';
+                    }elseif($val==2){
+                        $element[$delta]['#markup'] = 'W';
+                    }
+                }
+            }
+            break;
+        case 'alfaq_field_formatter_2': //этот формат мы добавили в строке 51
+            foreach ($items as $delta => $item) {
+                if ($item['alfaq_field']) {
+                    $val = $item['alfaq_field'];
+                    if($val==1){
+                        $element[$delta]['#markup'] = 'Men';
+                    }elseif($val==2){
+                        $element[$delta]['#markup'] = 'Women';
+                    }
+                }
+            }
+            break;
+    }
+    return $element;
+}
+
+function field_api_field_is_empty($item, $field) {
+    if (empty($item['alfaq_field'])) {
+        return true;
+    }
 }
