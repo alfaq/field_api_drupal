@@ -2,6 +2,7 @@
 /**
 * @file
 * A description of what your module does.
+ * Кратко у нас есть описатель типа поля, есть виджет - есть вывод этого виджета в форме заполнения мтаериала. Есть форматтер - есть вывод этого формата в ноде!!!!!!!!!
 */
 
 /**
@@ -9,6 +10,7 @@
  * В добавлении нового поля должно появиться наше новое поле. Вначале определим тип поля. Поместим в файл test_fuields.module следующую функцию.
  * Теперь можно будет добавить к материалу поле типа «Выбор пола».  Значение элемента default_widget , равное textf_widget==alfaq_field_widget говорит о том,
  * что тип виджета будет называться textf. С ним мы будем работать чуть позже. Этот виджет будет отвечать за то, какого типа будет поле в форме добавления ноды.
+ * FIELD TYPE in MANAGE content type
  */
 
 function field_api_field_info() {
@@ -26,6 +28,7 @@ function field_api_field_info() {
  * @return array
  * Теперь нужно дать описание полю, чтобы пользователь понимал поле какого типа он добавляет к материалу – поле ввода, текстовую область, выпадающий список и т.д.
  * Можно вписать сюда всё что угодно.
+ * WIDGET in MANAGE content type
  */
 
 function field_api_field_widget_info() {
@@ -40,6 +43,7 @@ function field_api_field_widget_info() {
 /**
  * Также для поля нужен формат вывода.
  * Для этого используем hook_field_formatter_info. Пусть Drupal будет выводить М/Ж или  Мужчина/Женщина. Напишем следующую функцию.
+ * DISPLAY format in MANAGE content type
  */
 
 function field_api_field_formatter_info() {
@@ -84,10 +88,10 @@ function field_api_field_widget_form(&$form, &$form_state, $field, $instance, $l
 
 function field_api_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
     $element = array();
-
+    dpm($display);
     switch ($display['type']) {
         case 'alfaq_field_formatter': //этот формат мы добавили в строке 47
-            dpm($items);
+            //dpm($items);
             foreach ($items as $delta => $item) {
                 if ($item['alfaq_field']) {
                     $val = $item['alfaq_field'];
