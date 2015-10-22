@@ -1,0 +1,4 @@
+name = Field Api
+description = В этом модуле я буду использовать Field API.
+core = 7.x
+package = test_modules
