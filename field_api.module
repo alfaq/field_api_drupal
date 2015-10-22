@@ -4,21 +4,52 @@
 * A description of what your module does.
 */
 
+/**
+ * @return array
+ * В добавлении нового поля должно появиться наше новое поле. Вначале определим тип поля. Поместим в файл test_fuields.module следующую функцию.
+ * Теперь можно будет добавить к материалу поле типа «Выбор пола».  Значение элемента default_widget , равное textf_widget==alfaq_field_widget говорит о том,
+ * что тип виджета будет называться textf. С ним мы будем работать чуть позже. Этот виджет будет отвечать за то, какого типа будет поле в форме добавления ноды.
+ */
+
 function field_api_field_info() {
     return array(
         'alfaq_field' => array(
             'label' => t('Select sex'),
             'description' => t('Description field'),
             'default_widget' => 'alfaq_field_widget',
-            'default_formatter' => 'alfaq_field_formatter',
+            'default_formatter' => 'alfaq_field_formatter', // name line 47
         ),
     );
 }
+
+/**
+ * @return array
+ * Теперь нужно дать описание полю, чтобы пользователь понимал поле какого типа он добавляет к материалу – поле ввода, текстовую область, выпадающий список и т.д.
+ * Можно вписать сюда всё что угодно.
+ */
 
 function field_api_field_widget_info() {
     return array(
         'alfaq_field' => array(
             'label' => t('Selector'),
+            'field types' => array('alfaq_field'),
+        ),
+    );
+}
+
+/**
+ * Также для поля нужен формат вывода.
+ * Для этого используем hook_field_formatter_info. Пусть Drupal будет выводить М/Ж или  Мужчина/Женщина. Напишем следующую функцию.
+ */
+
+function field_api_field_formatter_info() {
+    return array(
+        'alfaq_field_formatter' => array(
+            'label' => t('label'),
+            'field types' => array('alfaq_field'),
+        ),
+        'textf_formatter_2' => array(
+            'label' => t('text'),
             'field types' => array('alfaq_field'),
         ),
     );
